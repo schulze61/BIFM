@@ -82,34 +82,16 @@ pos = np.array([Mc_init, FeMg_init, SiMg_init]).T
 ndim = pos.shape[1]
 
 
-import os
-
-os.environ["OMP_NUM_THREADS"] = "1"
-
-from multiprocessing import Pool
-
 nsteps = 5
 
-import time
-
-if __name__ == '__main__':
-        with Pool() as pool:
-            sampler = emcee.EnsembleSampler(nwalkers, ndim, log_prob, pool=pool)
-            start = time.time()
-            sampler.run_mcmc(pos, nsteps, progress=True, store = True)
-            end = time.time()
-            multi_time = end - start
-            print("Multiprocessing took {0:.1f} seconds".format(multi_time))
-            #print("{0:.1f} times faster than serial".format(serial_time / multi_time))
 
 
-        #sampler = emcee.EnsembleSampler(
-        #    nwalkers, ndim, log_prob)
+sampler = emcee.EnsembleSampler(nwalkers, ndim, log_prob)
+sampler.run_mcmc(pos, nsteps, progress=True, store = True)
 
-        #sampler.run_mcmc(pos, nsteps, progress=True);
-        labels = ["Mc", "Fe/Mg", "Si/Mg"]
+labels = ["Mc", "Fe/Mg", "Si/Mg"]
 
-        flat_samples = sampler.get_chain(flat=True)
-        df = pd.DataFrame(flat_samples, columns  = labels)
-        df.to_csv('test_mcmc_run_Earth.csv')
+flat_samples = sampler.get_chain(flat=True)
+df = pd.DataFrame(flat_samples, columns  = labels)
+df.to_csv('test_mcmc_run_Earth.csv')
 
