@@ -45,7 +45,7 @@ def prior_FeMg(FeMg):
     return sp.truncnorm.pdf(FeMg, a, b, loc=FeMgs, scale= sigFeMgs)
 
 def prior_SiMg(SiMg):
-    a, b = (0.2 - SiMgs) / sigSiMgs, (1000.0 - SiMgs) / sigSiMgs
+    a, b = (0.2 - SiMgs) / sigSiMgs, (2.0 - SiMgs) / sigSiMgs
     #return sp.norm.pdf(FeMg, loc = FeMgs, scale = sigFeMgs)
     return sp.truncnorm.pdf(SiMg, a, b, loc=SiMgs, scale= sigSiMgs)
 
