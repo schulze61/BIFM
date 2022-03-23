@@ -23,6 +23,8 @@ import ExoPlex.functions as functions
 #function to call exoplex for bayesian models
 
 def call_ExoPlex(Mc, FeMg, SiMg, FeO = 0):
+    
+    
     Pressure_range_mantle_UM = '1000 1400000'
     Temperature_range_mantle_UM = '1400 3000'
 
@@ -30,7 +32,7 @@ def call_ExoPlex(Mc, FeMg, SiMg, FeO = 0):
     Temperature_range_mantle_LM = '2200 9000'
 
     core_rad_frac_guess = 0.5
-    water_rad_frac_guess = 0.
+    water_rad_frac_guess = 0.0
 
     combine_phases = True
     use_grids = True
@@ -71,13 +73,14 @@ def call_ExoPlex(Mc, FeMg, SiMg, FeO = 0):
     num_core_layers = 2000
     
     
-    compositional_params = [wt_frac_water,FeMg,SiMg,CaMg,AlMg,wt_frac_FeO_wanted,wt_frac_Si_core, \
-                          wt_frac_O_core,wt_frac_S_core,combine_phases,use_grids,Conserve_oxy]
+    compositional_params = np.array([wt_frac_water,FeMg,SiMg,CaMg,AlMg,wt_frac_FeO_wanted,wt_frac_Si_core, \
+                          wt_frac_O_core,wt_frac_S_core,combine_phases,use_grids,Conserve_oxy])
         
         
     #need to calculate mass of planet from Mc and compositional parameters
     cmf_var = functions.get_percents(compositional_params,verbose)[-1]
     Mass_planet = Mc/cmf_var
+    #Mass_planet = 1.0
     
     #print('Masssss: ', Mass_planet)
     #print('Calc CMF: ', cmf_var)
