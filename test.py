@@ -83,11 +83,11 @@ pos = np.array([Mc_init, FeMg_init, SiMg_init]).T
 ndim = pos.shape[1]
 
 
-nsteps = 5
+nsteps = 10
 
 
 
-sampler = emcee.EnsembleSampler(nwalkers, ndim, log_prob)
+sampler = emcee.EnsembleSampler(nwalkers, ndim, log_prob, nthreads = 15)
 sampler.run_mcmc(pos, nsteps, progress=True, store = True)
 
 labels = ["Mc", "Fe/Mg", "Si/Mg"]
