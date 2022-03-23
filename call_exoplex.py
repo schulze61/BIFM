@@ -25,11 +25,17 @@ import ExoPlex.functions as functions
 def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     
     
-    Pressure_range_mantle_UM = '1000 1400000'
-    Temperature_range_mantle_UM = '1400 3000'
+    Pressure_range_mantle_UM = '1 1400000'
+    Temperature_range_mantle_UM = '1600 3500'
 
-    Pressure_range_mantle_LM = '1000000 10000000'
-    Temperature_range_mantle_LM = '2200 9000'
+    Pressure_range_mantle_LM = '1250000 40000000'
+    Temperature_range_mantle_LM = '1700 7000'
+    
+    comp_keys = ['wt_frac_water','FeMg','SiMg','CaMg','AlMg','wt_frac_FeO_wanted','wt_frac_Si_core',
+                          'wt_frac_O_core','wt_frac_S_core', 'combine_phases','use_grids','conserve_oxy']
+    struct_keys = ['Pressure_range_mantle_UM','Temperature_range_mantle_UM','resolution_UM',
+                         'Pressure_range_mantle_LM', 'Temperature_range_mantle_LM', 'resolution_LM',
+                         'Mantle_potential_temp','water_potential_temp']
 
     core_rad_frac_guess = 0.5
     water_rad_frac_guess = 0.0
@@ -67,8 +73,8 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     #These are input as number of T, P points. 50 50 = 2500 grid points, which takes about
     #5 minutes to calculate. Lower mantle resolution does not need to be higher since it's
     #mostly ppv.
-    resolution_UM = '50 50'
-    resolution_LM = '20 20'
+    resolution_UM = '25 75'
+    resolution_LM = '75 75'
 
     #lastly we need to decide how many layers to put in the planet. This is the resolution of
     #the mass-radius sampling.
@@ -76,14 +82,14 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     num_core_layers = 2000
     
     
-    compositional_params = [wt_frac_water,FeMg,SiMg,CaMg,AlMg,wt_frac_FeO_wanted,wt_frac_Si_core, \
-                          wt_frac_O_core,wt_frac_S_core,combine_phases,use_grids,Conserve_oxy]
+    compositional_params = dict(zip(comp_keys,[wt_frac_water,FeMg,SiMg,CaMg,AlMg,wt_frac_FeO_wanted,wt_frac_Si_core, \
+                          wt_frac_O_core,wt_frac_S_core, combine_phases,use_grids,conserve_oxy]))
         
         
     #need to calculate mass of planet from Mc and compositional parameters
     #cmf_var = functions.get_percents(compositional_params,verbose)[-1]
-    #Mass_planet = Mc/cmf_var
-    Mass_planet = 1.0
+    Mass_planet = Mc/cmf_var
+    #Mass_planet = 1.0
     
     #print('Masssss: ', Mass_planet)
     #print('Calc CMF: ', cmf_var)
@@ -98,9 +104,9 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     else:
         filename=''
 
-    structure_params =  [Pressure_range_mantle_UM,Temperature_range_mantle_UM,resolution_UM, \
+    structure_params = dict(zip(struct_keys, [Pressure_range_mantle_UM,Temperature_range_mantle_UM,resolution_UM,
                          Pressure_range_mantle_LM, Temperature_range_mantle_LM, resolution_LM,
-                         core_rad_frac_guess,Mantle_potential_temp,water_rad_frac_guess,water_potential_temp]
+                                              Mantle_potential_temp,water_potential_temp]))
 
 
     layers = [num_mantle_layers,num_core_layers,number_h2o_layers]
@@ -110,6 +116,7 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     #(in name, not necessarily in composition), then PerPlex is not run again.
 
     Planet = exo.run_planet_mass(Mass_planet,compositional_params,structure_params,layers,filename, verbose)
+    exo.functions.check(Planet)
     
     Mout = (Planet['mass'][-1]/5.97e24)
     Rout = (Planet['radius'][-1]/6371e3)
