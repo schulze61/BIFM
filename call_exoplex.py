@@ -73,8 +73,8 @@ def call_ExoPlex(Mc, FeMg, SiMg, FeO = 0):
     num_core_layers = 2000
     
     
-    compositional_params = np.array([wt_frac_water,FeMg,SiMg,CaMg,AlMg,wt_frac_FeO_wanted,wt_frac_Si_core, \
-                          wt_frac_O_core,wt_frac_S_core,combine_phases,use_grids,Conserve_oxy])
+    compositional_params = [wt_frac_water,FeMg,SiMg,CaMg,AlMg,wt_frac_FeO_wanted,wt_frac_Si_core, \
+                          wt_frac_O_core,wt_frac_S_core,combine_phases,use_grids,Conserve_oxy]
         
         
     #need to calculate mass of planet from Mc and compositional parameters
