@@ -59,7 +59,7 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
 
     #What fraction of the mantle would you like to be made of FeO? This Fe will be pulled from the core.
     wt_frac_FeO_wanted = 0.0 #by mass
-    Conserve_oxy = False
+    conserve_oxy = False
 
     #Now we can mix various elements into the core or mantle
     wt_frac_Si_core = 0.0 #by mass <1, note if you conserve oxygen this is calculated for you
