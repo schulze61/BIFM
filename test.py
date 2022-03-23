@@ -26,7 +26,7 @@ Mc_guess = 0.33
 #define liklihood function
 def log_likelihood(theta):
     Mc, FeMg, SiMg = theta
-    print(Mc, FeMg, SiMg)
+    #print(Mc, FeMg, SiMg)
     try:
         model = ce.call_ExoPlex(Mc, FeMg, SiMg)
     except (AssertionError, SystemExit):
