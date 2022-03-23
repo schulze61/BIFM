@@ -94,5 +94,5 @@ labels = ["Mc", "Fe/Mg", "Si/Mg"]
 
 flat_samples = sampler.get_chain(flat=True)
 df = pd.DataFrame(flat_samples, columns  = labels)
-df.to_csv('test_mcmc_run_Earth.csv')
+df.to_csv('test_mcmc_run_Earth_2.csv')
 
