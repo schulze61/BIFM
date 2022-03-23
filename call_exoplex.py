@@ -81,9 +81,9 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
         
         
     #need to calculate mass of planet from Mc and compositional parameters
-    cmf_var = functions.get_percents(compositional_params,verbose)[-1]
-    Mass_planet = Mc/cmf_var
-    #Mass_planet = 1.0
+    #cmf_var = functions.get_percents(compositional_params,verbose)[-1]
+    #Mass_planet = Mc/cmf_var
+    Mass_planet = 1.0
     
     #print('Masssss: ', Mass_planet)
     #print('Calc CMF: ', cmf_var)
