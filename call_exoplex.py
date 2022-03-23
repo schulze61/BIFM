@@ -36,7 +36,7 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
 
     combine_phases = True
     use_grids = True
-    verbose = True
+    verbose = False
     
     #Fix minor mantle elements
     FeMg = FeMgvar
@@ -44,6 +44,7 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     CaMg = 0.07
     AlMg = 0.09
 
+    Mc = Mcvar
 
     #Other fixed paramets
     wt_frac_water = 0.0
@@ -51,7 +52,7 @@ def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     water_potential_temp = 300.
 
     #What fraction of the mantle would you like to be made of FeO? This Fe will be pulled from the core.
-    wt_frac_FeO_wanted = FeO #by mass
+    wt_frac_FeO_wanted = 0.0 #by mass
     Conserve_oxy = False
 
     #Now we can mix various elements into the core or mantle
