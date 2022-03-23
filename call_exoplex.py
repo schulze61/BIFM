@@ -22,7 +22,7 @@ import ExoPlex.functions as functions
 
 #function to call exoplex for bayesian models
 
-def call_ExoPlex(Mc, FeMg, SiMg, FeO = 0):
+def call_ExoPlex(Mcvar, FeMgvar, SiMgvar):
     
     
     Pressure_range_mantle_UM = '1000 1400000'
@@ -36,9 +36,11 @@ def call_ExoPlex(Mc, FeMg, SiMg, FeO = 0):
 
     combine_phases = True
     use_grids = True
-    verbose = False
+    verbose = True
     
     #Fix minor mantle elements
+    FeMg = FeMgvar
+    SiMg = SiMgvar
     CaMg = 0.07
     AlMg = 0.09
 
@@ -95,7 +97,7 @@ def call_ExoPlex(Mc, FeMg, SiMg, FeO = 0):
     else:
         filename=''
 
-    structure_params =  [Pressure_range_mantle_UM,Temperature_range_mantle_UM,resolution_UM,
+    structure_params =  [Pressure_range_mantle_UM,Temperature_range_mantle_UM,resolution_UM, \
                          Pressure_range_mantle_LM, Temperature_range_mantle_LM, resolution_LM,
                          core_rad_frac_guess,Mantle_potential_temp,water_rad_frac_guess,water_potential_temp]
 
