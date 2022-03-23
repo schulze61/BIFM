@@ -87,7 +87,7 @@ nsteps = 200
 
 
 
-sampler = emcee.EnsembleSampler(nwalkers, ndim, log_prob, threads = 8)
+sampler = emcee.EnsembleSampler(nwalkers, ndim, log_prob, threads = 4)
 sampler.run_mcmc(pos, nsteps, progress=True, store = True)
 
 labels = ["Mc", "Fe/Mg", "Si/Mg"]
