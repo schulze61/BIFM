@@ -83,7 +83,7 @@ pos = np.array([Mc_init, FeMg_init, SiMg_init]).T
 ndim = pos.shape[1]
 
 
-nsteps = 200
+nsteps = 540
 
 
 
